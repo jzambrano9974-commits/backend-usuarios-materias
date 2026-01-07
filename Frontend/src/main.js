@@ -5,7 +5,6 @@ const loginSection = document.getElementById('login-section');
 const dashboardSection = document.getElementById('dashboard-section');
 
 // --- LOGIN ---
-// --- LOGIN CON RASTREO ---
 document.getElementById('form-login').addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -38,7 +37,6 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
 
     } else {
       // ERROR
-      console.log("5. Entrando al ELSE de error"); // <--- CHISMOSO 5
       Swal.fire({
         icon: 'error',
         title: 'Acceso Denegado',
@@ -49,7 +47,6 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
     }
 
   } catch (error) { 
-    console.error("6. ERROR DE CONEXIÓN:", error); // <--- CHISMOSO 6
     Swal.fire({ icon: 'warning', title: 'Servidor desconectado', text: 'Revisa la terminal del backend' });
   }
 });
