@@ -1,8 +1,4 @@
-# Sistema de Gestión Escolar - Práctica Postgres
-
 Este proyecto es un sistema completo con Backend (Node.js/Express) y Frontend (Vanilla JS) separado.
-
-## 🚀 Instrucciones de Instalación
 
 1. **Base de Datos:**
    - Ejecutar el script `practica_Postgres.sql` en pgAdmin.
@@ -16,13 +12,7 @@ Este proyecto es un sistema completo con Backend (Node.js/Express) y Frontend (V
    - Entrar a la carpeta `Frontend`.
    - Abrir `index.html` con Live Server.
 
----
-
-## 🔑 Credenciales de Acceso (Login)
-
 Para ingresar como administrador por defecto:
 
 - **Usuario (Cédula):** `admin`
 - **Contraseña:** `admin`
-
----
