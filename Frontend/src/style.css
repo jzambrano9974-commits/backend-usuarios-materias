@@ -86,3 +86,11 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* =========================================
+   6. CORRECCIÓN PARA SWEETALERT (NUEVO)
+   ========================================= */
+/* Esto hace que las alertas salgan ENCIMA del login */
+div.swal2-container {
+    z-index: 20000 !important; 
+}

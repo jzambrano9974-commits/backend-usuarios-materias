@@ -5,8 +5,10 @@ const loginSection = document.getElementById('login-section');
 const dashboardSection = document.getElementById('dashboard-section');
 
 // --- LOGIN ---
+// --- LOGIN CON RASTREO ---
 document.getElementById('form-login').addEventListener('submit', async (e) => {
   e.preventDefault();
+
   const cedula = document.getElementById('login-cedula').value;
   const clave = document.getElementById('login-clave').value;
 
@@ -16,32 +18,41 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ cedula, clave })
     });
+    
+
     const data = await res.json();
 
     if (res.ok) {
-      Swal.fire({ icon: 'success', title: 'Bienvenido', text: data.usuario.nombre, timer: 1000, showConfirmButton: false });
+      // ÉXITO
+      Swal.fire({ icon: 'success', title: 'Bienvenido', text: data.usuario.nombre, timer: 1500, showConfirmButton: false });
       document.getElementById('usuario-logueado').innerText = data.usuario.nombre;
-      
-      // Ocultar Login y Mostrar Dashboard
       loginSection.classList.add('oculto');
       loginSection.classList.remove('d-flex');
       dashboardSection.classList.remove('oculto');
       dashboardSection.classList.add('d-flex');
-      
-      // Asegurar que inicie en el primer panel
       mostrarPanel('usuarios');
-      
-      // Cargar datos
       cargarUsuarios();
       cargarMaterias();
       cargarEstudiantes(); 
       cargarNotas();
-    } else {
-      Swal.fire('Error', data.msg, 'error');
-    }
-  } catch (error) { Swal.fire('Error', 'Sin conexión', 'error'); }
-});
 
+    } else {
+      // ERROR
+      console.log("5. Entrando al ELSE de error"); // <--- CHISMOSO 5
+      Swal.fire({
+        icon: 'error',
+        title: 'Acceso Denegado',
+        text: data.msg || 'Usuario o contraseña incorrectos',
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'Intentar de nuevo'
+      });
+    }
+
+  } catch (error) { 
+    console.error("6. ERROR DE CONEXIÓN:", error); // <--- CHISMOSO 6
+    Swal.fire({ icon: 'warning', title: 'Servidor desconectado', text: 'Revisa la terminal del backend' });
+  }
+});
 document.getElementById('btn-logout').addEventListener('click', () => location.reload());
 
 // --- NAVEGACIÓN (Esto arregla que todo se vea de golpe) ---

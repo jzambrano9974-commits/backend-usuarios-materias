@@ -353,38 +353,41 @@ app.post("/login", async (req, res) => {
 // ==========================================
 //   INICIALIZACIÓN DEL ADMIN (SOLUCIÓN)
 // ==========================================
+// ==========================================
+//   USUARIO ADMIN SIMPLE (admin / admin)
+// ==========================================
 async function crearAdminPorDefecto() {
   try {
-    const cedulaAdmin = "1316009974"; // Tu cédula
-    const nombreAdmin = "Juan Zambrano";
-    const claveAdmin = "admin2025"; // Contraseña de acceso
+    const cedulaAdmin = "admin";    // El usuario será "admin"
+    const nombreAdmin = "Administrador";
+    const claveAdmin = "admin";     // La contraseña será "admin"
 
-    // Verificar si ya existe el usuario
+    // Verificamos si ya existe para no duplicarlo
     const check = await pool.query("SELECT * FROM usuarios WHERE cedula = $1", [cedulaAdmin]);
     
     if (check.rows.length === 0) {
-      console.log("⚠️ Admin no encontrado. Creando usuario administrador seguro...");
+      console.log("⚠️ Usuario 'admin' no existe. Creándolo...");
       
-      // Encriptar la clave por defecto
+      // Encriptamos la contraseña "admin"
       const salt = await bcrypt.genSalt(10);
       const claveEncriptada = await bcrypt.hash(claveAdmin, salt);
 
-      // Insertar en la BD
+      // Lo guardamos en la base de datos
       await pool.query(
         "INSERT INTO usuarios (cedula, nombre, clave) VALUES ($1, $2, $3)",
         [cedulaAdmin, nombreAdmin, claveEncriptada]
       );
       
-      console.log(`✅ Usuario Administrador creado: Cédula ${cedulaAdmin}`);
+      console.log(`✅ Usuario creado con éxito: User: ${cedulaAdmin} | Pass: ${claveAdmin}`);
     } else {
-      console.log("ℹ️ El sistema ya tiene administrador. Inicio normal.");
+      console.log("ℹ️ El usuario 'admin' ya existe. Todo listo.");
     }
   } catch (error) {
-    console.error("Error creando admin por defecto:", error);
+    console.error("Error creando admin:", error);
   }
 }
 
-// Ejecutamos la verificación antes de levantar el puerto
+// Ejecutamos la función al iniciar el servidor
 crearAdminPorDefecto();
 
 // ==========================================
