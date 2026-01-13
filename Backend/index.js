@@ -359,7 +359,7 @@ app.post("/login", async (req, res) => {
 async function crearAdminPorDefecto() {
   try {
     const cedulaAdmin = "admin";    // El usuario será "admin"
-    const nombreAdmin = "Administrador";
+    const nombreAdmin = "Admin";
     const claveAdmin = "admin";     // La contraseña será "admin"
 
     // Verificamos si ya existe para no duplicarlo
